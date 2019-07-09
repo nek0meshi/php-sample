@@ -12,3 +12,19 @@ services:
     working_dir: /apps/php-sample
     command: php -S 0.0.0.0:8080
 
+  db:
+    image: mysql:5.7
+    container_name: php-sample-db
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: sample
+      MYSQL_USER: sample
+      MYSQL_PASSWORD: sample
+      TZ: 'Asia/Tokyo'
+    command: mysqld --port 3300
+    volumes:
+    - ./docker/db/data:/var/lib/mysql
+    - ./docker/db/my.cnf:/etc/mysql/conf.d/my.cnf
+    - ./sql:/docker-entrypoint-initdb.d/sql
+    ports:
+    - 3300:3300
