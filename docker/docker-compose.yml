@@ -2,7 +2,9 @@ version: '3'
 
 services:
   php:
-    image: php:7.2-fpm
+    build:
+      context: .
+      dockerfile: ./docker/php/Dockerfile
     container_name: php-sample-php
     volumes:
     - ./docker/php/php.ini:/usr/local/etc/php/php.ini
@@ -13,7 +15,7 @@ services:
     command: php -S 0.0.0.0:8080
 
   db:
-    image: mysql:5.7
+    image: mysql:8
     container_name: php-sample-db
     environment:
       MYSQL_ROOT_PASSWORD: root
